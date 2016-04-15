@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
@@ -13,27 +8,27 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Problem2();
-
         }
 
         private static void Problem2()
         {
             string input = Console.ReadLine();
             while (input != "#")
-            {
-                input = Console.ReadLine();
+            {                
                 Console.WriteLine(CheckResult(input) ? "Correct" : "Wrong");
+                input = Console.ReadLine();
             };
         }
 
         private static bool CheckResult(string expression)
         {
+            string[] operands = expression.Split('=');
             string oprt = Regex.Match(expression, @"[\*+-//]").Value;
-            MatchCollection coll = Regex.Matches(expression, @"\d");
+            string[] values = operands[0].Split(oprt.ToCharArray());
 
-            int first = Convert.ToInt32(coll[0].Value);
-            int second = Convert.ToInt32(coll[1].Value);
-            int third = Convert.ToInt32(coll[2].Value);
+            int first = Convert.ToInt32(values[0]);
+            int second = Convert.ToInt32(values[1]);
+            int third = Convert.ToInt32(operands[1]);
 
             int result = GetResult(first, second, oprt);
 
